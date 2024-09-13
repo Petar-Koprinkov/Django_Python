@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>My Tasks</h1>
+    {% if tasks %}
+    <h2>I have {{ tasks|length }} tasks</h2>
+    {% else %}
+    <h2>There are no tasks</h2>
+    {% endif %}
+    <form method="get" action="/">
+        <input name="filter" value="{{ task_filter }}" placeholder="Search">
+        <button type="submit">Submit</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.name }} - {{ task.description }} - {{ task.created_at }}</li>
+        {% empty %}
+            <p>The slot is empty!</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
