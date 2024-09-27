@@ -5,7 +5,7 @@ from forumApp.posts.choices import LanguageChoices
 
 class Books(models.Model):
     title = models.CharField(
-        max_length=100
+        max_length=100,
     )
 
     content = models.TextField()

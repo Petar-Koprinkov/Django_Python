@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
-from forumApp.posts.forms import AddBookForm
+from forumApp.posts.forms import AddBookForm, DeleteBookForm
 from forumApp.posts.models import Books
 
 
@@ -32,7 +32,7 @@ def add_book(request):
 
 def delete_book(request, pk):
     book = Books.objects.get(pk=pk)
-    form = AddBookForm(instance=book)
+    form = DeleteBookForm(instance=book)
 
     if request.method == 'POST':
         book.delete()
