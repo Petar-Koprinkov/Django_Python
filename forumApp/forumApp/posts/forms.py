@@ -18,6 +18,10 @@ class AddBookForm(BookBaseForm):
     pass
 
 
+class EditBookForm(BookBaseForm):
+    pass
+
+
 class DeleteBookForm(BookBaseForm):
 
     def __init__(self, *args, **kwargs):

@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
-from forumApp.posts.forms import AddBookForm, DeleteBookForm
+from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm
 from forumApp.posts.models import Books
 
 
@@ -28,6 +28,23 @@ def add_book(request):
     }
 
     return render(request, 'forum/add-book.html', context)
+
+
+def edit_book(request, pk):
+    book = Books.objects.get(pk=pk)
+    form = AddBookForm(instance=book)
+
+    if request.method == 'POST':
+        form = EditBookForm(request.POST, instance=book)
+        form.save()
+        return redirect('index')
+
+    context = {
+        'form': form,
+        'book': book,
+    }
+
+    return render(request, 'forum/edit-page.html', context)
 
 
 def delete_book(request, pk):

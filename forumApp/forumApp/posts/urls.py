@@ -8,5 +8,6 @@ urlpatterns = [
     path('add-book/', views.add_book, name='add-book'),
     path('<int:pk>/', include([
         path('delete-book/', views.delete_book, name='delete-book'),
+        path('edit-book/', views.edit_book, name='edit-book'),
     ]))
 ]
