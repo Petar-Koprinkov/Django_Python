@@ -27,7 +27,23 @@ def add_book(request):
         'form': form,
     }
 
-    return render(request, 'forum/add-books.html', context)
+    return render(request, 'forum/add-book.html', context)
+
+
+def delete_book(request, pk):
+    book = Books.objects.get(pk=pk)
+    form = AddBookForm(instance=book)
+
+    if request.method == 'POST':
+        book.delete()
+        return redirect('index')
+
+    context = {
+        'form': form,
+        'book': book,
+    }
+
+    return render(request, 'forum/delete-book.html', context)
 
 
 
