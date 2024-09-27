@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
 from forumApp.posts.forms import AddBookForm
-
+from forumApp.posts.models import Books
 
 
 def index(request):
@@ -10,7 +10,9 @@ def index(request):
 
 
 def dashboard(request):
-    context = {}
+    books = Books.objects.all()
+
+    context = {"books": books}
     return render(request, 'forum/dashboard.html', context)
 
 
