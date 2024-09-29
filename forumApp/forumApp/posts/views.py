@@ -44,7 +44,7 @@ def edit_book(request, pk):
     if request.method == 'POST':
         form = EditBookForm(request.POST, instance=book)
         form.save()
-        return redirect('index')
+        return redirect('details-book', pk=book.pk)
 
     context = {
         'form': form,
