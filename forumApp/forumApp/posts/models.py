@@ -1,6 +1,7 @@
 from django.db import models
 
 from forumApp.posts.choices import LanguageChoices
+from forumApp.posts.validators import BadLanguageValidator
 
 
 class Books(models.Model):
@@ -8,7 +9,9 @@ class Books(models.Model):
         max_length=100,
     )
 
-    content = models.TextField()
+    content = models.TextField(
+        validators=[BadLanguageValidator(words=['fuck'])]
+    )
 
     author = models.CharField(
         max_length=100
