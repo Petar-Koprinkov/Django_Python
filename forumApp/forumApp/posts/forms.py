@@ -29,3 +29,14 @@ class DeleteBookForm(BookBaseForm):
 
         for field in self.fields:
             self.fields[field].disabled = True
+
+
+class SearchForm(forms.Form):
+    title = forms.CharField(
+        required=False,
+        label='',
+        max_length=100,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Search for book...',
+        })
+    )

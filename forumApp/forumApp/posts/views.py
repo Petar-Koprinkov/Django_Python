@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
-from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm
+from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm
 from forumApp.posts.models import Books
 
 
@@ -10,9 +10,16 @@ def index(request):
 
 
 def dashboard(request):
+    form = SearchForm(request.GET)
     books = Books.objects.all()
+    if form.is_valid():
+        books = books.filter(title__icontains=form.cleaned_data['title'])
 
-    context = {"books": books}
+    context = {
+        'form': form,
+        'books': books,
+    }
+
     return render(request, 'forum/dashboard.html', context)
 
 
@@ -71,7 +78,6 @@ def details_page(request, pk):
     }
 
     return render(request, 'forum/details-page.html', context)
-
 
 
 
