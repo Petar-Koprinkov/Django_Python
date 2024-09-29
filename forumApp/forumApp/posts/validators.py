@@ -1,7 +1,9 @@
 from typing import List
 from django.core.exceptions import ValidationError
+from django.utils.deconstruct import deconstructible
 
 
+@deconstructible
 class BadLanguageValidator:
     def __init__(self, words: List, message=None):
         self.words = words
