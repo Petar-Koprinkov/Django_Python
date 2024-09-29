@@ -16,19 +16,22 @@
         <div class="container">
             <div class="posts">
             {% for book in books %}
-                <div class="post">
-                    <h2>{{ book.title|capfirst }}</h2>
-                
-                    {% if not book.content %}
-                        {% lorem 3 p %}
-                    {% else %}
-                        {{ book.content }}
-                    {% endif %}
-                
-                    <div class="post-meta">
-                        <span>Posted by {{ book.author|default:"anonymous" }} on {{ book.created_at|date:"D d M Y" }}</span>
+                <a href="{% url 'details-book' book.pk %}">
+                    <div class="post">
+                        <h2>{{ book.title|capfirst }}</h2>
+                    
+                        {% if not book.content %}
+                            {% lorem 3 p %}
+                        {% else %}
+                            {{ book.content }}
+                        {% endif %}
+                    
+                        <div class="post-meta">
+                            <span>Posted by {{ book.author|default:"anonymous" }} on {{ book.created_at|date:"D d M Y" }}</span>
+                        </div>
                     </div>
-                </div>
+                </a>
+                
             {% empty %}
                 <h1>No Books</h1>
             {% endfor %}

@@ -60,8 +60,17 @@ def delete_book(request, pk):
         'book': book,
     }
 
-    return render(request, 'forum/delete-book.html', context)
+    return render(request, 'forum/delete-page.html', context)
 
+
+def details_page(request, pk):
+    book = Books.objects.get(pk=pk)
+
+    context = {
+        'book': book,
+    }
+
+    return render(request, 'forum/details-page.html', context)
 
 
 
