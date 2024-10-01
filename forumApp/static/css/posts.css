@@ -65,6 +65,7 @@ a {
 
 .post p {
     color: #666;
+    text-decoration: none;
 }
 
 .post-meta {

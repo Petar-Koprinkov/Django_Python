@@ -6,7 +6,7 @@ from forumApp.posts.models import Books
 
 def index(request):
 
-    return render(request, 'forum/common/base.html', )
+    return render(request, 'forum/index.html', )
 
 
 def dashboard(request):
