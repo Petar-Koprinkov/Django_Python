@@ -1,6 +1,14 @@
 {% extends 'forum/common/base.html' %}
 
+{% block style %}
+    <style>
+        h1 {
+            color: #405cf5;
+        }
+    </style>
+{% endblock %}
 {% block content %}
+    <h1>Add Book</h1>
     <form action="{% url 'add-book' %}" method="post">
         {% csrf_token %}
         {{ form }}
