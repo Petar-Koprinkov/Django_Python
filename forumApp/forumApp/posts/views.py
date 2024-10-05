@@ -1,11 +1,9 @@
-from datetime import datetime
 from django.shortcuts import render, redirect
 from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm
 from forumApp.posts.models import Books
 
 
 def index(request):
-
     return render(request, 'forum/index.html', )
 
 

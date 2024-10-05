@@ -6,7 +6,7 @@ from forumApp.posts.validators import BadLanguageValidator
 
 class Books(models.Model):
     title = models.CharField(
-        max_length=100,
+        max_length=30,
     )
 
     content = models.TextField(
