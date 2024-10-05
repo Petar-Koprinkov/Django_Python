@@ -1,4 +1,6 @@
 from django import forms
+
+from forumApp.posts.form_mixins import DisabledMixin
 from forumApp.posts.models import Books
 
 
@@ -21,13 +23,8 @@ class EditBookForm(BookBaseForm):
     pass
 
 
-class DeleteBookForm(BookBaseForm):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields:
-            self.fields[field].disabled = True
+class DeleteBookForm(BookBaseForm, DisabledMixin):
+    pass
 
 
 class SearchForm(forms.Form):
