@@ -39,7 +39,7 @@
                 <span>Posted by {{ book.author|default:"anonymous" }} on {{ book.created_at|date:"d-M-Y" }}</span>  
             </div>  
         </div>
-        <<form method="post" class="form-inline" action="{% url 'details-book' pk=book.pk%}">
+        <form method="post" class="form-inline" action="{% url 'details-book' pk=book.pk%}">
             {% csrf_token %}
             {{ formset.management_form }}
             <div class="input-group">

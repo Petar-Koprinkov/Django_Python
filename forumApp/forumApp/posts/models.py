@@ -27,6 +27,12 @@ class Books(models.Model):
         default=LanguageChoices.Other
     )
 
+    image = models.ImageField(
+        upload_to='images/',
+        blank=True,
+        null=True,
+    )
+
 
 class Comments(models.Model):
     book = models.ForeignKey(

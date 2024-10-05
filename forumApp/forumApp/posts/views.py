@@ -22,7 +22,7 @@ def dashboard(request):
 
 
 def add_book(request):
-    form = AddBookForm(request.POST or None)
+    form = AddBookForm(request.POST or None, request.FILES or None)
 
     if request.method == 'POST' and form.is_valid():
         form.save()
