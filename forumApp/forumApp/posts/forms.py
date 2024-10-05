@@ -105,7 +105,7 @@ class CommentForm(forms.ModelForm):
 
         self.fields['content'].widget.attrs.update({
             'class': 'form-control',
-            'placeholder': 'Your content...',
+            'placeholder': 'Your comment...',
         })
 
 

@@ -1,4 +1,6 @@
 {% extends 'forum/common/base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
 {% block style %}
     <style>
@@ -11,7 +13,7 @@
     <h1>Add Book</h1>
     <form action="{% url 'add-book' %}" method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form|crispy }}
         <button class="button-9">Submit</button>
     </form>
 {% endblock %}
