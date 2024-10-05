@@ -36,6 +36,16 @@
                 <span>Posted by {{ book.author|default:"anonymous" }} on {{ book.created_at|date:"d-M-Y" }}</span>  
             </div>  
         </div>  
+        <form action="{% url 'details-book' book.pk%}" method="POST">
+            {% csrf_token %}
+            {{ formset }}
+            <button>Submit</button>
+        </form>
+        <div>
+            {% for comment in book.comments.all %}
+                {{ comment.content }}
+            {% endfor %}
+        </div>
     </div>
 </body>
     <script src='https://unpkg.com/akar-icons-fonts'></script>

@@ -1,8 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import formset_factory
 
 from forumApp.posts.form_mixins import DisabledMixin
-from forumApp.posts.models import Books
+from forumApp.posts.models import Books, Comments
 
 
 class BookBaseForm(forms.ModelForm):
@@ -44,6 +45,17 @@ class AddBookForm(BookBaseForm):
     #         raise ValidationError('The title must not be in the content')
     #     return cleaned_data
 
+    # save() method is used to modify the instance right before it is saved in the db.
+    # With save(commit=False) we get the instance without save it in the db, and we can modify it how we want.
+    def save(self, commit=True):
+        book = super().save(commit=False)
+        book.title = book.title.capitalize()
+
+        if commit:
+            book.save()
+
+        return book
+
 
 class EditBookForm(BookBaseForm):
     pass
@@ -62,3 +74,53 @@ class SearchForm(forms.Form):
             'placeholder': 'Search for book...',
         })
     )
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ('author', 'content')
+
+        labels = {
+            'author': '',
+            'content': '',
+        }
+
+        error_messages = {
+            'author': {
+                'required': 'You must enter an author.',
+            },
+            'content': {
+                'required': 'You must enter a content.',
+            },
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['author'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Your name',
+        })
+
+        self.fields['content'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Your content...',
+        })
+
+
+CommentFormSet = formset_factory(CommentForm, extra=1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

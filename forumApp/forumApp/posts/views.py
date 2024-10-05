@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm
+from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm, CommentFormSet
 from forumApp.posts.models import Books
 
 
@@ -71,22 +71,20 @@ def delete_book(request, pk):
 
 def details_page(request, pk):
     book = Books.objects.get(pk=pk)
+    formset = CommentFormSet(request.POST or None)
+
+    if request.method == 'POST':
+        if formset.is_valid():
+            for form in formset:
+                if form.cleaned_data:
+                    comment = form.save(commit=False)
+                    comment.book = book
+                    comment.save()
+            return redirect('details-book', pk=book.pk)
 
     context = {
         'book': book,
+        'formset': formset,
     }
 
     return render(request, 'forum/details-page.html', context)
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -26,3 +26,21 @@ class Books(models.Model):
         choices=LanguageChoices.choices,
         default=LanguageChoices.Other
     )
+
+
+class Comments(models.Model):
+    book = models.ForeignKey(
+        to=Books,
+        on_delete=models.CASCADE,
+        related_name='comments',
+    )
+
+    author = models.CharField(
+        max_length=30
+    )
+
+    content = models.TextField()
+
+    created_at = models.DateField(
+        auto_now_add=True,
+    )
