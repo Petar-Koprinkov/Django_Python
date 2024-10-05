@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from forumApp.posts.form_mixins import DisabledMixin
 from forumApp.posts.models import Books
@@ -23,11 +24,25 @@ class BookBaseForm(forms.ModelForm):
 
 
 class AddBookForm(BookBaseForm):
-    def clean(self):
+
+    # clean_fields is a method which get every field of the form and clean it after is_valid() method is called.
+    # To make validation in the current filed we have to call method clean_<fieldname> and write the logic there.
+    def clean_author(self):
         cleaned_data = super().clean()
-        title = cleaned_data.get('title')
-        title.capitalize()
-        return cleaned_data
+        author = cleaned_data.get('author')
+        if author[0] != author[0].upper():
+            raise ValidationError('The name of the author must be capitalized.')
+
+        return author
+
+    # clean() method is to validate the business logic between the fields.
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     title = cleaned_data.get('title')
+    #     content = cleaned_data.get('content')
+    #     if title and content and title in content:
+    #         raise ValidationError('The title must not be in the content')
+    #     return cleaned_data
 
 
 class EditBookForm(BookBaseForm):
