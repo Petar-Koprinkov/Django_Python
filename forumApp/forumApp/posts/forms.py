@@ -89,6 +89,7 @@ class CommentForm(forms.ModelForm):
         error_messages = {
             'author': {
                 'required': 'You must enter an author.',
+                'max_length': 'Your length have to be maximum 30 characters.',
             },
             'content': {
                 'required': 'You must enter a content.',

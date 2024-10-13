@@ -80,7 +80,7 @@ def details_page(request, pk):
                     comment = form.save(commit=False)
                     comment.book = book
                     comment.save()
-            return redirect('details-book', pk=book.pk)
+            return redirect('index', pk=book.pk)
 
     context = {
         'book': book,
