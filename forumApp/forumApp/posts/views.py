@@ -1,24 +1,51 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, FormView
 from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm, CommentFormSet
 from forumApp.posts.models import Books
 
 
-def index(request):
-    return render(request, 'forum/index.html', )
+class IndexView(TemplateView):
+    template_name = 'forum/index.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['book'] = 'My_book'
+    #     return context
 
 
-def dashboard(request):
-    form = SearchForm(request.GET)
-    books = Books.objects.all()
-    if form.is_valid():
-        books = books.filter(title__icontains=form.cleaned_data['title'])
+# def index(request):
+#     return render(request, 'forum/index.html', )
 
-    context = {
-        'form': form,
-        'books': books,
-    }
 
-    return render(request, 'forum/dashboard.html', context)
+class DashboardView(ListView, FormView):
+    template_name = 'forum/dashboard.html'
+    model = Books
+    context_object_name = 'books'
+    form_class = SearchForm
+    success_url = reverse_lazy('dashboard')
+
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+
+        if 'title' in self.request.GET:
+            query = self.request.GET.get('title')
+            queryset = queryset.filter(title__icontains=query)
+
+        return queryset
+
+# def dashboard(request):
+#     form = SearchForm(request.GET)
+#     books = Books.objects.all()
+#     if form.is_valid():
+#         books = books.filter(title__icontains=form.cleaned_data['title'])
+#
+#     context = {
+#         'form': form,
+#         'books': books,
+#     }
+#
+#     return render(request, 'forum/dashboard.html', context)
 
 
 def add_book(request):
