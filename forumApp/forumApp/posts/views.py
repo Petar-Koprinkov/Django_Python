@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, FormView
+from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm, CommentFormSet
 from forumApp.posts.models import Books
 
@@ -34,6 +34,7 @@ class DashboardView(ListView, FormView):
 
         return queryset
 
+
 # def dashboard(request):
 #     form = SearchForm(request.GET)
 #     books = Books.objects.all()
@@ -48,52 +49,79 @@ class DashboardView(ListView, FormView):
 #     return render(request, 'forum/dashboard.html', context)
 
 
-def add_book(request):
-    form = AddBookForm(request.POST or None, request.FILES or None)
-
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('index')
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'forum/add-book.html', context)
+class AddBookView(CreateView):
+    template_name = 'forum/add-book.html'
+    form_class = AddBookForm
+    success_url = reverse_lazy('index')
+    model = Books
+    context_object_name = 'book'
 
 
-def edit_book(request, pk):
-    book = Books.objects.get(pk=pk)
-    form = AddBookForm(instance=book)
+# def add_book(request):
+#     form = AddBookForm(request.POST or None, request.FILES or None)
+#
+#     if request.method == 'POST' and form.is_valid():
+#         form.save()
+#         return redirect('index')
+#
+#     context = {
+#         'form': form,
+#     }
+#
+#     return render(request, 'forum/add-book.html', context)
 
-    if request.method == 'POST':
-        form = EditBookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect('details-book', pk=book.pk)
-
-    context = {
-        'form': form,
-        'book': book,
-    }
-
-    return render(request, 'forum/edit-page.html', context)
+class EditBookView(UpdateView):
+    template_name = 'forum/edit-page.html'
+    form_class = EditBookForm
+    success_url = reverse_lazy('dashboard')
+    model = Books
+    context_object_name = 'book'
 
 
-def delete_book(request, pk):
-    book = Books.objects.get(pk=pk)
-    form = DeleteBookForm(instance=book)
+# def edit_book(request, pk):
+#     book = Books.objects.get(pk=pk)
+#     form = AddBookForm(instance=book)
+#
+#     if request.method == 'POST':
+#         form = EditBookForm(request.POST, instance=book)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('details-book', pk=book.pk)
+#
+#     context = {
+#         'form': form,
+#         'book': book,
+#     }
+#
+#     return render(request, 'forum/edit-page.html', context)
 
-    if request.method == 'POST':
-        book.delete()
-        return redirect('index')
 
-    context = {
-        'form': form,
-        'book': book,
-    }
+class DeleteBookView(DeleteView):
+    context_object_name = 'book'
+    model = Books
+    success_url = reverse_lazy('index')
+    template_name = 'forum/delete-page.html'
+    form_class = DeleteBookForm
 
-    return render(request, 'forum/delete-page.html', context)
+    def get_initial(self):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        book = Books.objects.get(pk=pk)
+        return book.__dict__
+
+# def delete_book(request, pk):
+#     book = Books.objects.get(pk=pk)
+#     form = DeleteBookForm(instance=book)
+#
+#     if request.method == 'POST':
+#         book.delete()
+#         return redirect('index')
+#
+#     context = {
+#         'form': form,
+#         'book': book,
+#     }
+#
+#     return render(request, 'forum/delete-page.html', context)
 
 
 def details_page(request, pk):
