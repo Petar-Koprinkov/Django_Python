@@ -1,3 +1,4 @@
+from django.forms import modelform_factory
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
@@ -76,6 +77,12 @@ class EditBookView(UpdateView):
     success_url = reverse_lazy('dashboard')
     model = Books
     context_object_name = 'book'
+
+    def get_form_class(self):
+        if self.request.user.is_superuser:
+            return modelform_factory(Books, fields=('title', 'content', 'author', 'language'))
+        else:
+            return modelform_factory(Books, fields=('content',))
 
 
 # def edit_book(request, pk):
