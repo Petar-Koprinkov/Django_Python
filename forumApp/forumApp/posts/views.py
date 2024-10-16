@@ -89,3 +89,8 @@ class DetailPageView(DetailView):
                     comment.save()
 
             return redirect('details-book', pk=book.pk)
+
+        context = super().get_context_data(**kwargs)
+        context['formset'] = formset
+
+        return self.render_to_response(context)
