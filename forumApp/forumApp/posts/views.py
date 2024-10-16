@@ -79,18 +79,20 @@ class DetailPageView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
         formset = CommentFormSet(request.POST)
-        book = self.get_object()
+
         if formset.is_valid():
             for form in formset:
                 if form.cleaned_data:
                     comment = form.save(commit=False)
-                    comment.book = book
+                    comment.book = self.object
                     comment.save()
 
-            return redirect('details-book', pk=book.pk)
+            return redirect('details-book', pk=self.object.pk)
 
-        context = super().get_context_data(**kwargs)
+        context = self.get_context_data(**kwargs)
         context['formset'] = formset
 
         return self.render_to_response(context)
