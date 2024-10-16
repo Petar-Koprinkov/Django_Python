@@ -1,22 +1,13 @@
 from django.forms import modelform_factory
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView, DetailView
 from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm, CommentFormSet
 from forumApp.posts.models import Books
 
 
 class IndexView(TemplateView):
     template_name = 'forum/index.html'
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['book'] = 'My_book'
-    #     return context
-
-
-# def index(request):
-#     return render(request, 'forum/index.html', )
 
 
 class DashboardView(ListView, FormView):
@@ -36,20 +27,6 @@ class DashboardView(ListView, FormView):
         return queryset
 
 
-# def dashboard(request):
-#     form = SearchForm(request.GET)
-#     books = Books.objects.all()
-#     if form.is_valid():
-#         books = books.filter(title__icontains=form.cleaned_data['title'])
-#
-#     context = {
-#         'form': form,
-#         'books': books,
-#     }
-#
-#     return render(request, 'forum/dashboard.html', context)
-
-
 class AddBookView(CreateView):
     template_name = 'forum/add-book.html'
     form_class = AddBookForm
@@ -57,19 +34,6 @@ class AddBookView(CreateView):
     model = Books
     context_object_name = 'book'
 
-
-# def add_book(request):
-#     form = AddBookForm(request.POST or None, request.FILES or None)
-#
-#     if request.method == 'POST' and form.is_valid():
-#         form.save()
-#         return redirect('index')
-#
-#     context = {
-#         'form': form,
-#     }
-#
-#     return render(request, 'forum/add-book.html', context)
 
 class EditBookView(UpdateView):
     template_name = 'forum/edit-page.html'
@@ -85,24 +49,6 @@ class EditBookView(UpdateView):
             return modelform_factory(Books, fields=('content',))
 
 
-# def edit_book(request, pk):
-#     book = Books.objects.get(pk=pk)
-#     form = AddBookForm(instance=book)
-#
-#     if request.method == 'POST':
-#         form = EditBookForm(request.POST, instance=book)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('details-book', pk=book.pk)
-#
-#     context = {
-#         'form': form,
-#         'book': book,
-#     }
-#
-#     return render(request, 'forum/edit-page.html', context)
-
-
 class DeleteBookView(DeleteView):
     context_object_name = 'book'
     model = Books
@@ -115,38 +61,26 @@ class DeleteBookView(DeleteView):
         book = Books.objects.get(pk=pk)
         return book.__dict__
 
-# def delete_book(request, pk):
-#     book = Books.objects.get(pk=pk)
-#     form = DeleteBookForm(instance=book)
-#
-#     if request.method == 'POST':
-#         book.delete()
-#         return redirect('index')
-#
-#     context = {
-#         'form': form,
-#         'book': book,
-#     }
-#
-#     return render(request, 'forum/delete-page.html', context)
 
+class DetailPageView(DetailView):
+    model = Books
+    template_name = 'forum/details-page.html'
+    context_object_name = 'book'
 
-def details_page(request, pk):
-    book = Books.objects.get(pk=pk)
-    formset = CommentFormSet(request.POST or None)
+    def get_context_data(self, **kwargs):
+        formset = CommentFormSet()
+        context = super().get_context_data(**kwargs)
+        context['formset'] = formset
+        return context
 
-    if request.method == 'POST':
+    def post(self, request, *args, **kwargs):
+        formset = CommentFormSet(request.POST)
+        book = self.get_object()
         if formset.is_valid():
             for form in formset:
                 if form.cleaned_data:
                     comment = form.save(commit=False)
                     comment.book = book
                     comment.save()
-            return redirect('index', pk=book.pk)
 
-    context = {
-        'book': book,
-        'formset': formset,
-    }
-
-    return render(request, 'forum/details-page.html', context)
+            return redirect('details-book', pk=book.pk)
