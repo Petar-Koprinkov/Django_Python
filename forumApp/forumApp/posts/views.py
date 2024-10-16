@@ -1,11 +1,15 @@
 from django.forms import modelform_factory
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView, DetailView
+
+from forumApp.decorators import limit_work_time
 from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm, CommentFormSet
 from forumApp.posts.models import Books
 
 
+@method_decorator(limit_work_time, name='dispatch')
 class IndexView(TemplateView):
     template_name = 'forum/index.html'
 
