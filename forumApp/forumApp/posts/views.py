@@ -5,12 +5,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView, DetailView
 
 from forumApp.decorators import limit_work_time
+from forumApp.posts.form_mixins import TimeDistrictMixin
 from forumApp.posts.forms import AddBookForm, DeleteBookForm, EditBookForm, SearchForm, CommentFormSet
 from forumApp.posts.models import Books
 
 
 @method_decorator(limit_work_time, name='dispatch')
-class IndexView(TemplateView):
+class IndexView(TimeDistrictMixin, TemplateView):
     template_name = 'forum/index.html'
 
 
