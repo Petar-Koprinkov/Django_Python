@@ -115,3 +115,48 @@ a {
     color: #666;
     line-height: 1.5;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.step-links {
+    display: inline-block;
+}
+
+.step-links a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.step-links a:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.step-links .current {
+    padding: 8px 12px;
+    margin: 0 4px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+.step-links a:first-child {
+    margin-left: 0;
+}
+
+.step-links a:last-child {
+    margin-right: 0;
+}
