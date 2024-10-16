@@ -63,8 +63,7 @@ class DeleteBookView(DeleteView):
     form_class = DeleteBookForm
 
     def get_initial(self):
-        pk = self.kwargs.get(self.pk_url_kwarg)
-        book = Books.objects.get(pk=pk)
+        book = self.get_object()
         return book.__dict__
 
 
