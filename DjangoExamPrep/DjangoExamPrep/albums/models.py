@@ -29,10 +29,9 @@ class Album(models.Model):
     price = models.FloatField(
         validators=[MinValueValidator(0.0)],
     )
-
+    #TODO: i have to hidden it in UI
     owner = models.ForeignKey(
         to='profiles.Profile',
         on_delete=models.CASCADE,
         related_name='albums',
     )
-
