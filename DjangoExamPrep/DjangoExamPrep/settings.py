@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'DjangoExamPrep.profiles',
     'DjangoExamPrep.albums',
+    'DjangoExamPrep.common'
 ]
 
 MIDDLEWARE = [
