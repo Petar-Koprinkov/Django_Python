@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 
-from DjangoExamPrep.albums.forms import AddAlbumForm, EditAlbumForm
+from DjangoExamPrep.albums.forms import AddAlbumForm, EditAlbumForm, DeleteAlbumForm
 from DjangoExamPrep.albums.models import Album
 from DjangoExamPrep.utils import get_profile_object
 
@@ -27,4 +27,23 @@ class EditAlbumView(UpdateView):
     pk_url_kwarg = 'id'
 
 
+class DetailAlbumView(DetailView):
+    model = Album
+    template_name = 'album/album-details.html'
+    context_object_name = 'album'
+    pk_url_kwarg = 'id'
 
+
+class DeleteAlbumView(DeleteView):
+    model = Album
+    form_class = DeleteAlbumForm
+    context_object_name = 'album'
+    success_url = reverse_lazy('home')
+    pk_url_kwarg = 'id'
+    template_name = 'album/album-delete.html'
+
+    def get_initial(self):
+        return self.object.__dict__
+
+    def form_invalid(self, form):
+        return self.form_valid(form)
