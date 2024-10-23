@@ -1,6 +1,7 @@
 from django import forms
 
 from DjangoExamPrep.albums.models import Album
+from DjangoExamPrep.mixins import PlaceholderMixin
 
 
 class BaseAlbumForm(forms.ModelForm):
@@ -9,5 +10,13 @@ class BaseAlbumForm(forms.ModelForm):
         exclude = ['owner']
 
 
-class AddAlbumForm(BaseAlbumForm):
+class AddAlbumForm(PlaceholderMixin, BaseAlbumForm):
+    pass
+
+
+class EditAlbumForm(BaseAlbumForm):
+    pass
+
+
+class DeleteAlbumForm(BaseAlbumForm):
     pass
