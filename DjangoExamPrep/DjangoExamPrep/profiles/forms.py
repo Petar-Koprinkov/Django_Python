@@ -12,3 +12,6 @@ class BaseProfileForm(forms.ModelForm):
 
 class AddProfileForm(PlaceholderMixin, BaseProfileForm):
     pass
+
+
+

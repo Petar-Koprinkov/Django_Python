@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('DjangoExamPrep.common.urls')),
     path('album/', include('DjangoExamPrep.albums.urls')),
+    path('profile/', include('DjangoExamPrep.profiles.urls'))
 ]
