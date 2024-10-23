@@ -1,7 +1,7 @@
 from django import forms
 
 from DjangoExamPrep.albums.models import Album
-from DjangoExamPrep.mixins import PlaceholderMixin
+from DjangoExamPrep.mixins import PlaceholderMixin, ReadOnlyMixin
 
 
 class BaseAlbumForm(forms.ModelForm):
@@ -18,5 +18,5 @@ class EditAlbumForm(BaseAlbumForm):
     pass
 
 
-class DeleteAlbumForm(BaseAlbumForm):
+class DeleteAlbumForm(ReadOnlyMixin, BaseAlbumForm):
     pass
