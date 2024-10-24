@@ -21,7 +21,7 @@
                 <a href="#">Create Plant</a>
                 <a href="#">Profile</a>
             {% else %}
-                <a href="#">Create Profile</a>
+                <a href="{% url 'create_profile' %}">Create Profile</a>
             {% endif %}
         </nav>
     </header>

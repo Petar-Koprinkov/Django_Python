@@ -6,7 +6,7 @@ from DjangoExamPrep2.profiles.models import Profile
 class BaseProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        exclude = ['profile_picture']
 
 
 class CreateProfileForm(BaseProfileForm):

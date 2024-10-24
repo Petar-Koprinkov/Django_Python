@@ -1,4 +1,4 @@
-from django.core.validators import MaxLengthValidator
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db import models
 
 from DjangoExamPrep2.profiles.validators import CapitalLetterValidator
@@ -7,7 +7,7 @@ from DjangoExamPrep2.profiles.validators import CapitalLetterValidator
 class Profile(models.Model):
     username = models.CharField(
         max_length=10,
-        validators=[MaxLengthValidator(2)],
+        validators=[MinLengthValidator(2)],
 
     )
 
