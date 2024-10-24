@@ -33,7 +33,9 @@
                     <img class="star-img" src="{% static 'images/star3.png' %}" alt='profile-image'/>
                     <img class="star-img" src="{% static 'images/star3.png' %}" alt='profile-image'/>
                 {% endif %}
-                <p class="description">Total stars: {{ stars.count }}</p>
+                {% if  stars.count == 0 %}
+                    <p class="description">Total stars: {{ stars.count }}</p>
+                {% endif %}
 
                 <!-- Edit/Delete buttons -->
                 <div class="buttons">
