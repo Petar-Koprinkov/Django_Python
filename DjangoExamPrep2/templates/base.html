@@ -17,8 +17,8 @@
         <h1><a class="index-navigation" href="{% url 'home' %}">MyPlants</a></h1>
         <nav>
             {% if profile %}
-                <a href="#">Catalogue</a>
-                <a href="#">Create Plant</a>
+                <a href="{% url 'catalogue' %}">Catalogue</a>
+                <a href="{% url 'create-plant' %}">Create Plant</a>
                 <a href="#">Profile</a>
             {% else %}
                 <a href="{% url 'create_profile' %}">Create Profile</a>

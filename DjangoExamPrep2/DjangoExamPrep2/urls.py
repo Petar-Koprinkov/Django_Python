@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('DjangoExamPrep2.common.urls')),
-    path('profile/', include('DjangoExamPrep2.profiles.urls'))
+    path('profile/', include('DjangoExamPrep2.profiles.urls')),
+    path('plant/', include('DjangoExamPrep2.plants.urls')),
 ]
