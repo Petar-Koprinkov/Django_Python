@@ -39,5 +39,12 @@ class DeletePlantView(DeleteView):
     def get_initial(self):
         return self.object.__dict__
 
+    def get_form_kwargs(self):
+        kwargs = {
+            "initial": self.get_initial(),
+        }
 
+        return kwargs
 
+    def form_invalid(self, form):
+        return self.form_valid(form)

@@ -6,10 +6,9 @@ from DjangoExamPrep2.plants.validators import AlphaValidator
 
 
 class Plant(models.Model):
-
     plant_type = models.CharField(
         max_length=14,
-        choices= PlantChoices.choices,
+        choices=PlantChoices.choices,
     )
 
     name = models.CharField(
