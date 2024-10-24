@@ -19,7 +19,7 @@
             {% if profile %}
                 <a href="{% url 'catalogue' %}">Catalogue</a>
                 <a href="{% url 'create-plant' %}">Create Plant</a>
-                <a href="#">Profile</a>
+                <a href="{% url 'details_profile' %}">Profile</a>
             {% else %}
                 <a href="{% url 'create_profile' %}">Create Profile</a>
             {% endif %}
