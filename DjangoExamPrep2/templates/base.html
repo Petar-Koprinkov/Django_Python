@@ -1,3 +1,5 @@
+{% load has_user %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,12 +13,16 @@
 <body>
 <div id="box">
     <header>
-        <!-- Navigation Bar -->
-        <h1><a class="index-navigation" href="#">MyPlants</a></h1>
+        {% has_user as profile %}
+        <h1><a class="index-navigation" href="{% url 'home' %}">MyPlants</a></h1>
         <nav>
-            <a href="#">Catalogue</a>
-            <a href="#">Create Plant</a>
-            <a href="#">Profile</a>
+            {% if profile %}
+                <a href="#">Catalogue</a>
+                <a href="#">Create Plant</a>
+                <a href="#">Profile</a>
+            {% else %}
+                <a href="#">Create Profile</a>
+            {% endif %}
         </nav>
     </header>
 
