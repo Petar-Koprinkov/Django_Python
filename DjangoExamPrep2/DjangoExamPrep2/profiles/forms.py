@@ -11,3 +11,9 @@ class BaseProfileForm(forms.ModelForm):
 
 class CreateProfileForm(BaseProfileForm):
     pass
+
+
+class EditProfileForm(BaseProfileForm):
+    pass
+
+
