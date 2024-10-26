@@ -1,3 +1,5 @@
+{% load  has_user %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +12,7 @@
 <body>
 <div id="box">
     <header>
+        {% has_user as profile %}
         <!-- Navigation Bar -->
         <h1>
             <a class="index-navigation" href="#"
@@ -17,13 +20,14 @@
             >
         </h1>
         <nav>
-            <!-- if the user has not created a profile -->
-            <a href="#">Create Profile</a>
+            {% if not profile %}
+                <a href="#">Create Profile</a>
 
-            <!-- if the user has created a profile -->
-            <a href="#">Catalogue</a>
-            <a href="#">Create Car</a>
-            <a href="#">Profile</a>
+            {% else %}
+                <a href="#">Catalogue</a>
+                <a href="#">Create Car</a>
+                <a href="#">Profile</a>
+            {% endif %}
         </nav>
     </header>
 

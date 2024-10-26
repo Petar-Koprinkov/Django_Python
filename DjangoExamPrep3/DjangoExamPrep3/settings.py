@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'DjangoExamPrep3.profiles',
-    'DjangoExamPrep3.cars'
+    'DjangoExamPrep3.cars',
+    'DjangoExamPrep3.common',
 ]
 
 MIDDLEWARE = [
