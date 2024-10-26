@@ -1,5 +1,6 @@
 from django import forms
 
+from DjangoExamPrep3.cars.mixins import ReadOnlyMixin
 from DjangoExamPrep3.cars.models import Car
 
 
@@ -18,4 +19,8 @@ class CreateCarForm(BaseCarForm):
 
 
 class EditCarForm(BaseCarForm):
+    pass
+
+
+class DeleteCarForm(ReadOnlyMixin, BaseCarForm):
     pass

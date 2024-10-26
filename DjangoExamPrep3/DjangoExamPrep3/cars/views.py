@@ -1,7 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
-from DjangoExamPrep3.cars.forms import CreateCarForm, EditCarForm
+from DjangoExamPrep3.cars.forms import CreateCarForm, EditCarForm, DeleteCarForm
 from DjangoExamPrep3.cars.models import Car
 from DjangoExamPrep3.utils import get_profile
 
@@ -32,6 +33,32 @@ class DetailCarView(DetailView):
     pk_url_kwarg = 'id'
 
 
+class EditCarView(UpdateView):
+    model = Car
+    form_class = EditCarForm
+    template_name = 'cars/car-edit.html'
+    success_url = reverse_lazy('catalogue')
+    pk_url_kwarg = 'id'
+
+
+class DeleteCarView(DeleteView):
+    model = Car
+    form_class = DeleteCarForm
+    template_name = 'cars/car-delete.html'
+    success_url = reverse_lazy('catalogue')
+    pk_url_kwarg = 'id'
+
+    def get_initial(self):
+        return self.object.__dict__
+
+    def get_form_kwargs(self):
+        kwargs = {
+            "initial": self.get_initial(),
+        }
+        return kwargs
+
+    def form_invalid(self, form):
+        return self.form_valid(form)
 
 
 
