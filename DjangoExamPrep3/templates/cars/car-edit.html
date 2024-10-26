@@ -1,58 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/style/style.css" />
-    <title>WorldOfSpeed</title>
-  </head>
+{% extends 'base.html' %}
 
-  <body>
-    <div id="box">
-      <header>
-        <!-- Navigation Bar -->
-        <h1>
-          <a class="index-navigation" href="#"
-            ><span>World of Speed</span></a
-          >
-        </h1>
-        <nav>
-          <a href="#">Catalogue</a>
-          <a href="#">Create Car</a>
-          <a href="#">Profile</a>
-        </nav>
-      </header>
-
+{% block context %}
       <section id="create-page" class="auth">
-        <!-- create car form -->
         <form id="create">
           <div class="container">
-            <h1 class="form-create-headline">Create Car</h1>
+            <h1>Edit Car</h1>
             <label for="type">Type:</label>
             <select name="type" required="" id="type">
-              <option value="" selected="">---------</option>
-              <option value="Rally">Rally</option>
+              <option value="">---------</option>
+              <option value="Rally" selected="">Rally</option>
               <option value="Open-wheel">Open-wheel</option>
               <option value="Kart">Kart</option>
               <option value="Drag">Drag</option>
               <option value="Other">Other</option>
             </select>
+
             <label for="model">Model:</label>
             <input
               type="text"
               name="model"
+              value="Ford"
               maxlength="20"
               required=""
               id="model"
             />
 
             <label for="year">Year:</label>
-            <input type="number" name="year" required="" id="year" />
+            <input
+              type="number"
+              name="year"
+              value="2017"
+              required=""
+              id="year"
+            />
 
             <label for="image_url">Image URL:</label>
             <input
               type="url"
               name="image_url"
+              value="https://cdn.pixabay.com/photo/2017/06/19/19/05/rally-2420637_1280.jpg"
               maxlength="200"
               required=""
               id="image_url"
@@ -62,18 +48,14 @@
             <input
               type="number"
               name="price"
+              value="85000.0"
               step="any"
               required=""
               id="price"
             />
 
-            <input class="btn" type="submit" value="Create Car" />
+            <input class="btn submit" type="submit" value="Edit Car" />
           </div>
         </form>
       </section>
-    </div>
-    <!-- Footer -->
-    <footer>&copy;SoftUni Team 2024. All rights reserved.</footer>
-    <!-- End Footer -->
-  </body>
-</html>
+{% endblock %}
