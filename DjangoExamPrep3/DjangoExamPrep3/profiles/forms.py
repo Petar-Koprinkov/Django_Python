@@ -19,3 +19,6 @@ class CreateProfileForm(BaseProfileForm):
         }
 
 
+class EditProfileForm(BaseProfileForm):
+    pass
+
