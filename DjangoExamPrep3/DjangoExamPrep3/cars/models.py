@@ -1,4 +1,4 @@
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 
 from DjangoExamPrep3.cars.choices import TypeChoices
@@ -26,6 +26,12 @@ class Car(models.Model):
         error_messages={
             'unique': 'This image URL is already in use! Provide a new one."'
         }
+    )
+
+    price = models.FloatField(
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(1.0)]
     )
 
     owner = models.ForeignKey(

@@ -19,8 +19,8 @@ class YearValidator():
         if value is None:
             self.message = 'Year must be between 1999 and 2030!'
         else:
-            self.message = value
+            self.__message = value
 
     def __call__(self, value):
-        if  not self.start_year <= value <= self.end_year:
+        if not self.start_year <= value <= self.end_year:
             raise ValidationError(self.message)
