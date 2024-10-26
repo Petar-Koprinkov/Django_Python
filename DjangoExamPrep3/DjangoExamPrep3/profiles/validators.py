@@ -41,7 +41,7 @@ class IsAlphaNumericValidator:
             self.__message = value
 
     def __call__(self, value: str):
-        if not value.isalnum() or not ('_' in value and value.isalnum()):
+        if not value.isalnum() or '_' in value:
             raise ValidationError(self.message)
 
 

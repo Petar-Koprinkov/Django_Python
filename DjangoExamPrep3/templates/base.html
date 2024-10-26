@@ -15,17 +15,17 @@
         {% has_user as profile %}
         <!-- Navigation Bar -->
         <h1>
-            <a class="index-navigation" href="#"
+            <a class="index-navigation" href="{% url 'home' %}"
             ><span>World of Speed</span></a
             >
         </h1>
         <nav>
             {% if not profile %}
-                <a href="#">Create Profile</a>
+                <a href="{% url 'create-profile' %}">Create Profile</a>
 
             {% else %}
-                <a href="#">Catalogue</a>
-                <a href="#">Create Car</a>
+                <a href="{% url 'catalogue' %}">Catalogue</a>
+                <a href="{% url 'create-car' %}">Create Car</a>
                 <a href="#">Profile</a>
             {% endif %}
         </nav>

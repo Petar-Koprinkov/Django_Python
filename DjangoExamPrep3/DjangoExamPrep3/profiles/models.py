@@ -27,7 +27,7 @@ class Profile(models.Model):
         null=True,
     )
 
-    second_name = models.CharField(
+    last_name = models.CharField(
         max_length=25,
         blank=True,
         null=True,
