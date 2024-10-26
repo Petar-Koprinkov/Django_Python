@@ -2,11 +2,11 @@
 
 {% block context %}
 
-    {% for car in cars %}
 
-        <section id="catalogue">
-            <h1>Total cars: {{ cars.count }}</h1>
 
+    <section id="catalogue">
+        <h1>Total cars: {{ cars.count }}</h1>
+        {% for car in cars %}
             <!-- first car-->
             <div class="car-card">
                 <div class="image-wrap">
@@ -22,16 +22,16 @@
                 <h1>{{ car.model }}</h1>
                 <div class="details-buttons">
                     <!-- car details button -->
-                    <a href="{% url 'details-car' car.pk%}" class="details-btn">Details</a>
+                    <a href="{% url 'details-car' car.pk %}" class="details-btn">Details</a>
                 </div>
             </div>
 
-        </section>
-        
-    {% empty %}
+            </section>
 
-        <p class="no-articles">No cars yet</p>
+        {% empty %}
 
-    {% endfor %}
+            <p class="no-articles">No cars yet</p>
+
+        {% endfor %}
 
 {% endblock %}

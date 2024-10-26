@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from DjangoExamPrep3.profiles.forms import CreateProfileForm
 from DjangoExamPrep3.profiles.models import Profile
+from DjangoExamPrep3.utils import get_total_price, get_profile
 
 
 class CreateProfileView(CreateView):
@@ -10,3 +11,17 @@ class CreateProfileView(CreateView):
     template_name = 'profiles/profile-create.html'
     form_class = CreateProfileForm
     success_url = reverse_lazy('catalogue')
+
+
+class DetailsProfileView(DetailView):
+    model = Profile
+    template_name = 'profiles/profile-details.html'
+    context_object_name = 'profile'
+
+    def get_object(self, queryset=None):
+        return get_profile()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_price'] = get_total_price()
+        return context
