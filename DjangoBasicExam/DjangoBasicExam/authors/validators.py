@@ -41,6 +41,6 @@ class ExactlyNumbersValidator:
         else:
             self.__message = value
 
-    def __call__(self, value: str):
-        if not len(value) == self.numbers:
+    def __call__(self, value):
+        if not len(value) == self.numbers or not value.isdigit():
             raise ValidationError(self.message)
