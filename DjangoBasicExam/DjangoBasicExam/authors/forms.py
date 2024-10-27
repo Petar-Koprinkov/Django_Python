@@ -18,3 +18,9 @@ class CreateAuthorForm(PlaceholderAuthorMixin, BaseAuthorForm):
         widgets = {
             'passcode': forms.PasswordInput(),
         }
+
+
+class EditAuthorForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ['first_name', 'last_name', 'pets_number', 'info', 'image_url']

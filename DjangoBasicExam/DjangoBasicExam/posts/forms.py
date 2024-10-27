@@ -1,5 +1,4 @@
 from django import forms
-
 from DjangoBasicExam.posts.mixins import PlaceholderPostMixin, ReadOnlyPostMixin
 from DjangoBasicExam.posts.models import Post
 
